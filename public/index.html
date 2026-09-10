@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=4" />
+</head>
+<body>
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <h3 id="modal-title">Notice</h3>
+      <p id="modal-text"></p>
+      <input id="modal-input" class="hidden" maxlength="12" autocomplete="off" />
+      <div class="modal-actions">
+        <button id="modal-cancel" type="button">Cancel</button>
+        <button id="modal-ok" type="button">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="logo">Pulse</div>
+      <h1>Join the conversation</h1>
+      <p>New members need a room key. If you already joined that room, enter the same name and skip the key.</p>
+      <form id="join-form">
+        <label>
+          Display name
+          <input id="name-input" maxlength="24" autocomplete="nickname" placeholder="Your name" required />
+        </label>
+        <label>
+          Existing room
+          <select id="room-select"></select>
+        </label>
+        <label id="key-field" class="hidden">
+          Room key
+          <input id="key-input" maxlength="12" autocomplete="off" placeholder="Only for first-time join" />
+        </label>
+        <p id="member-hint" class="hint hidden">You already joined this room. No key needed.</p>
+        <button type="submit">Enter room</button>
+      </form>
+      <form id="gate-create-form" class="create-block">
+        <label>
+          Or create a private room
+          <input id="gate-room-input" maxlength="32" placeholder="New room name" />
+        </label>
+        <button type="submit">Create room + key</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">Pulse</div>
+      <div class="sidebar-section">
+        <div class="section-title">Rooms</div>
+        <ul id="room-list"></ul>
+        <form id="new-room-form" class="new-room">
+          <input id="new-room-input" maxlength="32" placeholder="New private room" />
+          <button type="submit">+</button>
+        </form>
+      </div>
+      <div class="sidebar-section grow">
+        <div class="section-title">Online</div>
+        <ul id="member-list"></ul>
+      </div>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-header">
+        <div>
+          <h2 id="room-title">general</h2>
+          <span id="room-meta">0 people</span>
+        </div>
+        <div class="header-actions">
+          <div id="room-key" class="key-chip hidden" title="Visible to current members only">
+            <span>Room key</span>
+            <strong id="room-key-value"></strong>
+            <button id="copy-key" type="button">Copy</button>
+          </div>
+          <div id="you-label" class="you"></div>
+          <button id="notify-toggle" class="icon-btn" type="button" title="Notifications">
+            Alerts
+            <span id="notify-count" class="badge hidden">0</span>
+          </button>
+          <button id="delete-room" class="danger" type="button">Delete room</button>
+        </div>
+      </header>
+      <div id="notify-panel" class="notify-panel hidden">
+        <div class="notify-head">
+          <strong>Notifications</strong>
+          <div class="notify-tools">
+            <button id="enable-desktop" type="button">Desktop alerts</button>
+            <button id="clear-notifs" type="button">Clear</button>
+          </div>
+        </div>
+        <ul id="notify-list"></ul>
+      </div>
+      <div id="messages" class="messages"></div>
+      <div id="typing" class="typing"></div>
+      <form id="composer" class="composer">
+        <input id="message-input" maxlength="2000" placeholder="Write a message" autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js?v=4"></script>
+</body>
+</html>

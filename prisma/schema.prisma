@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id        String       @id @default(cuid())
+  name      String       @unique
+  locked    Boolean      @default(false)
+  key       String?
+  createdAt DateTime     @default(now())
+  messages  Message[]
+  members   RoomMember[]
+}
+
+model RoomMember {
+  id       String   @id @default(cuid())
+  roomId   String
+  username String
+  joinedAt DateTime @default(now())
+  room     Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, username])
+  @@index([roomId])
+}
+
+model Message {
+  id        String   @id
+  roomId    String
+  userName  String
+  text      String
+  createdAt DateTime @default(now())
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@index([roomId, createdAt])
+}

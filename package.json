@@ -1,0 +1,21 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time chatting app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "@prisma/client": "^6.19.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.0"
+  }
+}
